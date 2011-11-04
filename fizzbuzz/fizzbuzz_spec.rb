@@ -22,9 +22,12 @@ require 'rspec'
 
 describe FizzBuzz do
 
+  it "prints an empty string for 0" do
+    FizzBuzz.new.go(0).should == ""
+  end
+  
   it "prints 1 for 1" do
-    fb = FizzBuzz.new
-    fb.go(1).should == "1"
+    FizzBuzz.new.go(1).should == "1"
   end
 
   it "prints 1 2 Fizz for 3" do
