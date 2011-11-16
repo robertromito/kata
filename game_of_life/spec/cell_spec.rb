@@ -1,16 +1,16 @@
 require 'rspec'
 require 'cell'
-
+ 
 describe Cell do
   
   before do
-    @cell = Cell.new
+    @cell = Cell.new 
   end
-  
+
   describe "currently living" do
 
     it "should look alive" do
-      @cell.should be_alive
+      @cell.should_not be_alive
     end
 
     it "should not be alive & dead at the same time" do
