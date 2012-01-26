@@ -25,6 +25,7 @@ class WordChains
     chain = [current_word]
     next_word = nil
     until next_word == end_word
+      puts "Getting next for #{current_word}"
       next_word = get_word_after current_word
       chain << next_word
       current_word = next_word
