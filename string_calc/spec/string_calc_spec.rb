@@ -19,7 +19,7 @@ class StringCalc
 
 end
 
-describe "StringCalculator" do  
+describe "StringCalculator" do
 
   it "returns zero when given and empty string" do 
     StringCalc.string_calc("").should eql 0
