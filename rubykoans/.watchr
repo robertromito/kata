@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'ruby_gntp'
 
-def run_specs
-  puts "Running specs..."
-  result = `rspec spec`
+def run_rake
+  puts "Running rake..."
+  result = `cd koans && rake`
   result.split("\n").each do |msg|
     puts msg
   end
@@ -24,8 +24,8 @@ def growl(msg)
                 })
 end
 
-puts "Greetings. I'll run all specs whenever you save a source file."
+puts "Greetings. I'll run rake whenever you save a source file."
 initialize_growl
 
-watch('spec/(.*)\.rb') {|md| run_specs}
-watch('lib/(.*)\.rb') {|md| run_specs}
+watch('koans/(.*)\.rb') {|md| run_rake}
+
