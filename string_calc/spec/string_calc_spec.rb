@@ -1,53 +1,43 @@
-class StringCalc
+SUPPORTED_DELIMETERS = /(,|\n)/
 
-  DELIMITER = ','
-  
-  def self.string_calc(operands_string)
-    operands = normalize_delimiter_in_operands(operands_string)
-    return  operands.split(DELIMITER).inject(0){|sum, i| sum += i.to_i }
-  end
-
-  def self.normalize_delimiter_in_operands(operands)
-    alt_delimiter = ["\n"]
-
-    operands.gsub(/^\/\/(.)\n/, '')
-    alt_delimiter << $1 unless $1.nil?
-    
-    alt_delimiter.each {|d| operands.gsub!(d, DELIMITER) }
-    return operands
-  end
-
+def calc(args)
+  operands = extract_operands_from args
+  return operands[0].to_i if operands.size == 1
+  return sum_of_operands(operands)
 end
 
-describe "StringCalculator" do
+def extract_operands_from(args)
+  args.split SUPPORTED_DELIMETERS
+end
 
-  it "returns zero when given and empty string" do 
-    StringCalc.string_calc("").should eql 0
+def sum_of_operands(operands)
+  operands.inject(0) {|sum, o| sum += o.to_i}
+end
+
+
+describe "String Calculator" do 
+
+  it "returns 0 when given an empty string" do
+    calc("").should eql 0 
   end
 
-  it "returns operand when passed a single operand" do 
-    StringCalc.string_calc("3").should eql 3
-    StringCalc.string_calc("100").should eql 100
-    StringCalc.string_calc("0").should eql 0
-  end
-
-  it "returns sum of two numbers when passed a string delimited with a comma" do
-    StringCalc.string_calc("3,4").should eql 7
-    StringCalc.string_calc("100,100").should eql 200
-  end
-
-  it "returns the sum of any number of operands" do
-    StringCalc.string_calc("1,2,3,4,5").should eql 15
-    StringCalc.string_calc("20,20,20,20,20,20").should eql 120
-  end
-
-  it "returns the sum of numbers when given a string delimited with either a comma and/or newline" do
-    StringCalc.string_calc("1\n2,3,4\n5").should eql 15
-  end
-
-  it "returns the sum of numbers when given a string with a defined delimiter" do
-    StringCalc.string_calc("//;\n1;2;3").should eql 6
-    StringCalc.string_calc("//;\n1;2;3\n4,5;6").should eql 21
+  it "returns the operand when given only one operand" do 
+    calc("1").should eql 1
+    calc("99").should eql 99
+    calc("24564327").should eql 24564327
   end
   
+  it "returns the sum of the operands when given 2 operands" do 
+    calc("1,2").should eql 3
+    calc("100,100").should eql 200
+  end
+
+  it "returns the sume of the operands when given N operands" do 
+    calc("1,2,3,4").should eql 10
+    calc("10,10,10,10,10,10,10,10,10,11").should eql 101
+  end
+
+  it 'supports using \n as an additional delimiter' do 
+    calc("1\n2,3").should eql 6
+  end
 end
