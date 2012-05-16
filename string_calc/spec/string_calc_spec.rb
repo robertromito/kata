@@ -40,4 +40,5 @@ describe "String Calculator" do
   it 'supports using \n as an additional delimiter' do 
     calc("1\n2,3").should eql 6
   end
+
 end
