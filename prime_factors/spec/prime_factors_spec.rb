@@ -1,35 +1,59 @@
-def prime_factors_of(num)
-  factors = []
-  if num > 1
-    if num % 2 == 0
-      factors << 2
-      num /= 2
+class PrimeFactors
+
+  def generate(num)
+    factors = []
+
+    if num > 1
+      while (is_even? num)
+        factors << 2
+        num  /= 2
+      end
+      factors << num if num > 1
     end
+    
+    return factors
   end
-  factors << num if num > 1
-  return factors
+
+  private
+  
+  def is_even?(num)
+    num % 2 == 0
+  end
 end
 
-describe "Prime Factors" do 
-  it "returns an empty set for 1" do 
-    prime_factors_of(1).should eql []
+
+describe "PrimeFactors" do 
+
+  before(:each) do 
+    @pf = PrimeFactors.new
   end
   
-  it "returns a set containing the given number if it is prime" do 
-    prime_factors_of(2).should eql [2]
-    prime_factors_of(3).should eql [3]
-    prime_factors_of(5).should eql [5]
+  it "returns an empty set for 1" do 
+    @pf.generate(1).should eql []
   end
 
-  it "returns a set containing 2 for 4" do 
-    prime_factors_of(4).should eql [2, 2]
+  it "returns [2] for 2" do 
+    @pf.generate(2).should eql [2]
   end
 
-  it "returns a set containing 2, 3 for 6" do 
-    prime_factors_of(6).should eql [2,3] 
+  it "returns [3] for 3" do 
+    @pf.generate(3).should eql [3]
   end
 
-  it "returns a set containing 2,2,2 for 8" do 
-    prime_factors_of(8).should eql [2,2,2]
+  it "returns [2,2] for 4" do 
+    @pf.generate(4).should eql [2,2]
   end
+
+  it "returns [2,3] for 6" do
+    @pf.generate(6).should eql [2,3]
+  end
+
+  it "returns [2,2,2] for 8" do 
+    @pf.generate(8).should eql [2,2,2]
+  end
+
+  it "returns [3,3] for 9" do 
+    @pf.generate(9).should eq [3,3]
+  end
+  
 end
