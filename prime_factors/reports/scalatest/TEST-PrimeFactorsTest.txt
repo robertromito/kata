@@ -1,0 +1,2 @@
+[31m*** RUN ABORTED ***[0m
+[31m  An exception or error caused a run to abort: <(), the Unit value> did not equal 1 (prime_factors_test.scala:6)[0m
