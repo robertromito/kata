@@ -1,9 +1,9 @@
 require 'rubygems'
 require 'ruby_gntp'
 
-def run_specs
-  puts "Running specs..."
-  result = `rspec spec`
+def run_specs(file)
+  puts "Running nodeunit specs..."
+  result = `node #{file}`
   result.split("\n").each do |msg|
     puts msg
   end
@@ -27,5 +27,4 @@ end
 puts "Greetings. I'll run all specs whenever you save a source file."
 initialize_growl
 
-watch('spec/(.*)\.rb') {|md| run_specs}
-watch('lib/(.*)\.rb') {|md| run_specs}
+watch('(.*)\.js') {|md| run_specs(md)}
